@@ -56,7 +56,7 @@ class DesginController extends Controller
             $ext = $image->getClientOriginalExtension();
             $name = time() . ".$ext";
             $image->storeAs("/public/images/groups/$group->name", $name);
-            $design->url = "/storage/images/groups/$group->name/$name";
+            $design->url = "/storage/app/public/images/groups/$group->name/$name";
             $design->save();
         }
         $desginTag = DesginTag::where('desgin_id', $design->id)->get();
