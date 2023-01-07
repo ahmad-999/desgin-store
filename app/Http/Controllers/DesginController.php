@@ -28,7 +28,7 @@ class DesginController extends Controller
             $ext = $image->getClientOriginalExtension();
             $name = time() . ".$ext";
             $image->storeAs("/public/images/groups/$group->name", $name);
-            $design->url = "/storage/app/public/groups/$group->name/$name";
+            $design->url = "/storage/app/public/images/groups/$group->name/$name";
             $design->save();
         }
         $tags = Tag::whereIn('id', $request->tags)->get();
