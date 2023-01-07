@@ -18,7 +18,7 @@ class DesginController extends Controller
     public function createDesgin(CreateDesignRequest $request)
     {
         $user = Auth::user();
-        $group = Group::where('owner_id',$user)->first();
+        $group = Group::where('owner_id',$user->id)->first();
         $design = Desgin::create($request->values());
         $design->group_id = $group->id;
         $design->save();
