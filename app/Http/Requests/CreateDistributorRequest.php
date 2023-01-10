@@ -42,7 +42,15 @@ class CreateDistributorRequest extends FormRequest
     public function failedValidation(ValidationValidator $validator)
     {
         //write your bussiness logic here otherwise it will give same old JSON response
-        throw new HttpResponseException(MyResponse::returnError($validator->errors(), 422));
+        $errors = $validator->errors();
+        $es = [];
+        foreach($errors->getMessages() as $key => $error){
+            array_push($es,[
+                "key" => $key,
+                "errors" => $error
+            ]);
+        }
+        throw new HttpResponseException(MyResponse::returnError($es, 422));
     }
     public function values()
     {
