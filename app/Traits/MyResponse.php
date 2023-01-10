@@ -17,7 +17,7 @@ trait MyResponse
     {
         return response()->json([
             'code' => $code,
-            "msg" => $msg,
+            "errors" => $msg,
         ], 200);
     }
     public static function returnMessage($msg, $code=200)
