@@ -119,4 +119,13 @@ class UserController extends Controller
 
         return MyResponse::returnData("me",$user->format());
     }
+    public function deleteTag(int $id){
+        $tag = Tag::find($id);
+        if(isset($tag)){
+            $tag->delete();
+            return MyResponse::returnMessage("tag removed successfully.");
+        }else{
+            return MyResponse::returnError("tag not found.",404);
+        }
+    }
 }
