@@ -36,7 +36,7 @@ class DesginController extends Controller
             $ext = $image->getClientOriginalExtension();
             $name = (time()+ 1) . ".$ext";
             $image->storeAs("/public/videos/groups/$group->name", $name);
-            $design->url = "/storage/app/public/videos/groups/$group->name/$name";
+            $design->video_url = "/storage/app/public/videos/groups/$group->name/$name";
             $design->save();
         }
         
