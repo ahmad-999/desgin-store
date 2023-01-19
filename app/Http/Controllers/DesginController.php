@@ -31,6 +31,15 @@ class DesginController extends Controller
             $design->url = "/storage/app/public/images/groups/$group->name/$name";
             $design->save();
         }
+        if ($request->hasFile('video')) {
+            $image = $request->file('video');
+            $ext = $image->getClientOriginalExtension();
+            $name = (time()+ 1) . ".$ext";
+            $image->storeAs("/public/videos/groups/$group->name", $name);
+            $design->url = "/storage/app/public/videos/groups/$group->name/$name";
+            $design->save();
+        }
+        
         $tags = Tag::whereIn('id', $request->tags)->get();
 
         for ($i = 0; $i < count($tags); $i++) {

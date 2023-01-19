@@ -15,6 +15,7 @@ class Desgin extends Model
         'group_id',
         'name',
         'url',
+        'video_url',
         'desc',
     ];
     public function group(): BelongsTo
@@ -33,7 +34,8 @@ class Desgin extends Model
         return [
             "name" => $this->name,
             "desc" => $this->desc,
-            "url" => $this->url
+            "url" => $this->url,
+            "video" =>$this->video_url
         ];
     }
     public function formatWithOwner()
@@ -43,6 +45,7 @@ class Desgin extends Model
             "name" => $this->name,
             "desc" => $this->desc,
             "url" => $this->url,
+            "video" => $this->video_url,
             "created_at" => $this->created_at->diffForHumans(),
             "owner" => $this->group->owner->formatUser(),
             "tags" => $this->tags->map->format()
