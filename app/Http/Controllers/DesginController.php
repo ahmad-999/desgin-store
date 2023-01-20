@@ -62,6 +62,8 @@ class DesginController extends Controller
         $design->update($request->values());
         $group = Group::find($design->group_id);
         if ($request->hasFile('image')) {
+            $isDeleted = unlink(storage_path($design->url));
+            info("design image $design->name : $isDeleted");
             $image = $request->file('image');
             $ext = $image->getClientOriginalExtension();
             $name = time() . ".$ext";
@@ -69,6 +71,17 @@ class DesginController extends Controller
             $design->url = "/storage/app/public/images/groups/$group->name/$name";
             $design->save();
         }
+        if ($request->hasFile('video')) {
+            $isDeleted = unlink(storage_path($design->video_url));
+            info("design video $design->name : $isDeleted");
+            $image = $request->file('image');
+            $ext = $image->getClientOriginalExtension();
+            $name = time() . ".$ext";
+            $image->storeAs("/public/images/groups/$group->name", $name);
+            $design->url = "/storage/app/public/images/groups/$group->name/$name";
+            $design->save();
+        }
+        
         $desginTag = DesginTag::where('desgin_id', $design->id)->get();
         for ($i = 0; $i < count($desginTag); $i++) {
             $desginTag[$i]->delete();
