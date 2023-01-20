@@ -55,11 +55,11 @@ class DesginController extends Controller
     {
         $design = Desgin::find($request->id);
         if(isset($design->url)){
-            $isDeleted = unlink(storage_path($design->url));
+            $isDeleted = unlink("/home/laserstars/public_html".$design->url);
             info("design image $design->name : $isDeleted");
         }
         if(isset($design->video_url)){
-            $isDeleted = unlink(storage_path($design->video_url));
+            $isDeleted = unlink("/home/laserstars/public_html".$design->video_url);
             info("design video $design->name : $isDeleted");
         }
         
