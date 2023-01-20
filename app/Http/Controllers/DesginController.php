@@ -84,11 +84,11 @@ class DesginController extends Controller
         if ($request->hasFile('video')) {
             $isDeleted = unlink("/home/laserstars/public_html".$design->video_url);
             info("design video $design->name : $isDeleted");
-            $image = $request->file('image');
-            $ext = $image->getClientOriginalExtension();
+            $video = $request->file('video');
+            $ext = $video->getClientOriginalExtension();
             $name = time() . ".$ext";
-            $image->storeAs("/public/images/groups/$group->name", $name);
-            $design->url = "/storage/app/public/images/groups/$group->name/$name";
+            $video->storeAs("/public/videos/groups/$group->name", $name);
+            $design->url = "/storage/app/public/videos/groups/$group->name/$name";
             $design->save();
         }
         
