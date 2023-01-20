@@ -32,11 +32,12 @@ class DesginController extends Controller
             $design->save();
         }
         if ($request->hasFile('video')) {
-            $image = $request->file('video');
-            $ext = $image->getClientOriginalExtension();
+            $video = $request->file('video');
+            $ext = $video->getClientOriginalExtension();
             $name = (time()+ 1) . ".$ext";
             $image->storeAs("/public/videos/groups/$group->name", $name);
             $design->video_url = "/storage/app/public/videos/groups/$group->name/$name";
+            info($design->video_url);
             $design->save();
         }
         
