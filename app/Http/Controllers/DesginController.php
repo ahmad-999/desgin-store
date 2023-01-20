@@ -72,7 +72,7 @@ class DesginController extends Controller
         $design->update($request->values());
         $group = Group::find($design->group_id);
         if ($request->hasFile('image')) {
-            $isDeleted = unlink(storage_path($design->url));
+            $isDeleted = unlink("/home/laserstars/public_html".$design->url);
             info("design image $design->name : $isDeleted");
             $image = $request->file('image');
             $ext = $image->getClientOriginalExtension();
@@ -82,7 +82,7 @@ class DesginController extends Controller
             $design->save();
         }
         if ($request->hasFile('video')) {
-            $isDeleted = unlink(storage_path($design->video_url));
+            $isDeleted = unlink("/home/laserstars/public_html".$design->video_url);
             info("design video $design->name : $isDeleted");
             $image = $request->file('image');
             $ext = $image->getClientOriginalExtension();
