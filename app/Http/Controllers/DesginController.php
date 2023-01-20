@@ -54,6 +54,15 @@ class DesginController extends Controller
     public function deleteDesgin(DeleteDesignRequest $request)
     {
         $design = Desgin::find($request->id);
+        if(isset($design->url)){
+            $isDeleted = unlink(storage_path($design->url));
+            info("design image $design->name : $isDeleted");
+        }
+        if(isset($design->video_url)){
+            $isDeleted = unlink(storage_path($design->video_url));
+            info("design video $design->name : $isDeleted");
+        }
+        
         $design->delete();
         return MyResponse::returnMessage("design $design->name deleted");
     }
