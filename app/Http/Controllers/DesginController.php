@@ -11,12 +11,15 @@ use App\Models\Group;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use \App\Traits\MyResponse;
+use \App\Traits\Constance;
 use Illuminate\Support\Facades\Auth;
 
 class DesginController extends Controller
 {
     public function createDesgin(CreateDesignRequest $request)
     {
+        $storageDir = Constance::getMyStorageDir($request);
+        info($request->all());
         $user = Auth::user();
         $group = Group::where('owner_id',$user->id)->first();
         $design = Desgin::create($request->values());
@@ -28,15 +31,15 @@ class DesginController extends Controller
             $ext = $image->getClientOriginalExtension();
             $name = time() . ".$ext";
             $image->storeAs("/public/images/groups/$group->name", $name);
-            $design->url = "/storage/app/public/images/groups/$group->name/$name";
+            $design->url = "$storageDir/images/groups/$group->name/$name";
             $design->save();
         }
         if ($request->hasFile('video')) {
             $video = $request->file('video');
             $ext = $video->getClientOriginalExtension();
             $name = (time()+ 1) . ".$ext";
-            $image->storeAs("/public/videos/groups/$group->name", $name);
-            $design->video_url = "/storage/app/public/videos/groups/$group->name/$name";
+            $video->storeAs("/public/videos/groups/$group->name", $name);
+            $design->video_url = "$storageDir/videos/groups/$group->name/$name";
             info($design->video_url);
             $design->save();
         }
@@ -54,12 +57,16 @@ class DesginController extends Controller
     public function deleteDesgin(DeleteDesignRequest $request)
     {
         $design = Desgin::find($request->id);
+        
+        
         if(isset($design->url)){
-            $isDeleted = unlink("/home/laserstars/public_html".$design->url);
+            $path = Constance::getMyFilePath($request,$design->url);
+            $isDeleted = unlink($path);
             info("design image $design->name : $isDeleted");
         }
         if(isset($design->video_url)){
-            $isDeleted = unlink("/home/laserstars/public_html".$design->video_url);
+            $path = Constance::getMyFilePath($request,$design->video_url);
+            $isDeleted = unlink($path);
             info("design video $design->name : $isDeleted");
         }
         
@@ -71,14 +78,16 @@ class DesginController extends Controller
         $design = Desgin::find($request->id);
         $design->update($request->values());
         $group = Group::find($design->group_id);
+        $storageDir = Constance::getMyStorageDir($request);
         if ($request->hasFile('image')) {
             $isDeleted = unlink("/home/laserstars/public_html".$design->url);
             info("design image $design->name : $isDeleted");
             $image = $request->file('image');
             $ext = $image->getClientOriginalExtension();
             $name = time() . ".$ext";
+           
             $image->storeAs("/public/images/groups/$group->name", $name);
-            $design->url = "/storage/app/public/images/groups/$group->name/$name";
+            $design->url = "$storageDir/images/groups/$group->name/$name";
             $design->save();
         }
         if ($request->hasFile('video')) {
@@ -88,7 +97,7 @@ class DesginController extends Controller
             $ext = $video->getClientOriginalExtension();
             $name = time() . ".$ext";
             $video->storeAs("/public/videos/groups/$group->name", $name);
-            $design->url = "/storage/app/public/videos/groups/$group->name/$name";
+            $design->url = "$storageDir/videos/groups/$group->name/$name";
             $design->save();
         }
         
