@@ -40,7 +40,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('delete-desgin', [DesginController::class, 'deleteDesgin']);
     Route::post('update-desgin', [DesginController::class, 'updateDesgin']);
     Route::post('update-desgin-tags', [DesginController::class, 'updateDesginTags']);
-    Route::post('get-desgin-by-tags', [DesginController::class, 'getDesignsByTags']);
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('get-my-designs',[DesginController::class,'getMyDesigns']);
     Route::post('/me',[UserController::class,'me']);
@@ -49,3 +48,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::post('/get-all-designs',[DesginController::class,'getAllDesigns']);
 Route::post('/get-all-tags',[DesginController::class,'getAllTags']);
 Route::post('/get-all-distributors', [UserController::class, 'getAllDistributor']);
+Route::post('/get-desgin-by-tags', [DesginController::class, 'getDesignsByTags']);

@@ -150,7 +150,7 @@ class DesginController extends Controller
                 if (!in_array($tag, $tagsIds)) return false;
             }
             return true;
-        })->values()->map->format();
+        })->values()->map->formatWithOwner();
         return MyResponse::returnData("designs", $designs);
     }
     public function getAllDesigns()
