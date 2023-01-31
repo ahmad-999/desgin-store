@@ -12,6 +12,7 @@ use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use \App\Traits\MyResponse;
+use \App\Traits\Constance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -77,11 +78,16 @@ class UserController extends Controller
         if ($user->type == 'distributor') {
             $user->update($request->values());
             if ($request->hasFile('avatar_url')) {
+                if (isset($user->avatar_url)) {
+                    $path = Constance::getMyFilePath($request, $user->avatar_url);
+                    $isDeleted = unlink($path);
+                }
+                $storageDir = Constance::getMyStorageDir($request);
                 $image = $request->file('avatar_url');
                 $ext = $image->getClientOriginalExtension();
                 $name = time() . ".$ext";
                 $image->storeAs('/public/images/avatars/', $name);
-                $user->avatar_url = "/storage/images/avatars/$name";
+                $user->avatar_url = "$storageDir/images/avatars/$name";
             }
             $user->save();
             return MyResponse::returnMessage("$user->name distributor data updated.");
@@ -114,18 +120,20 @@ class UserController extends Controller
         }
     }
 
-    public function me(){
+    public function me()
+    {
         $user = Auth::user();
 
-        return MyResponse::returnData("me",$user->format());
+        return MyResponse::returnData("me", $user->format());
     }
-    public function deleteTag(int $id){
+    public function deleteTag(int $id)
+    {
         $tag = Tag::find($id);
-        if(isset($tag)){
+        if (isset($tag)) {
             $tag->delete();
             return MyResponse::returnMessage("tag removed successfully.");
-        }else{
-            return MyResponse::returnError("tag not found.",404);
+        } else {
+            return MyResponse::returnError("tag not found.", 404);
         }
     }
 }

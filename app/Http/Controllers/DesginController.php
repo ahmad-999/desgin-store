@@ -80,7 +80,8 @@ class DesginController extends Controller
         $group = Group::find($design->group_id);
         $storageDir = Constance::getMyStorageDir($request);
         if ($request->hasFile('image')) {
-            $isDeleted = unlink("/home/laserstars/public_html".$design->url);
+            $path = Constance::getMyFilePath($request,$design->url);
+            $isDeleted = unlink($path);
             info("design image $design->name : $isDeleted");
             $image = $request->file('image');
             $ext = $image->getClientOriginalExtension();
@@ -91,7 +92,8 @@ class DesginController extends Controller
             $design->save();
         }
         if ($request->hasFile('video')) {
-            $isDeleted = unlink("/home/laserstars/public_html".$design->video_url);
+            $path = Constance::getMyFilePath($request,$design->url);
+            $isDeleted = unlink($path);
             info("design video $design->name : $isDeleted");
             $video = $request->file('video');
             $ext = $video->getClientOriginalExtension();
