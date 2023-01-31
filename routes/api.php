@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
     Route::post('create-distributor', [UserController::class, 'createDistributor']);
     Route::post('delete-distributor', [UserController::class, 'deleteDistributor']);
     Route::post('delete-tag/{id}', [UserController::class, 'deleteTag']);
-    Route::post('update-distributor', [UserController::class, 'updateDistributor']);
+    
     Route::post('get-distributor/{id}', [UserController::class, 'getDistributorById']);
    
 });
@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('get-my-designs',[DesginController::class,'getMyDesigns']);
     Route::post('/me',[UserController::class,'me']);
+    Route::post('update-distributor', [UserController::class, 'updateDistributor']);
 });
 
 Route::post('/get-all-designs',[DesginController::class,'getAllDesigns']);
