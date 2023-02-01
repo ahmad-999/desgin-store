@@ -35,7 +35,8 @@ class Desgin extends Model
             "name" => $this->name,
             "desc" => $this->desc,
             "url" => $this->url,
-            "video" =>$this->video_url
+            "video" =>$this->video_url,
+            "created_at" => $this->created_at->diffForHumans(),
         ];
     }
     public function formatWithOwner()
