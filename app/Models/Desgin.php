@@ -27,7 +27,7 @@ class Desgin extends Model
         return $this->hasMany(DesginTag::class, 'desgin_id');
     }
 
-  
+
 
     public function format()
     {
@@ -35,7 +35,7 @@ class Desgin extends Model
             "name" => $this->name,
             "desc" => $this->desc,
             "url" => $this->url,
-            "video" =>$this->video_url,
+            "video" => $this->video_url,
             "created_at" => $this->created_at->diffForHumans(),
             "tags" => $this->tags->map->format()
         ];
@@ -49,7 +49,7 @@ class Desgin extends Model
             "url" => $this->url,
             "video" => $this->video_url,
             "created_at" => $this->created_at->diffForHumans(),
-            "owner" => $this->group->owner->formatUser(),
+            "owner" => $this->group->owner != null ? $this->group->owner->formatUser() : null,
             "tags" => $this->tags->map->format()
         ];
     }
