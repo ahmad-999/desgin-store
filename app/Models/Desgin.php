@@ -37,6 +37,7 @@ class Desgin extends Model
             "url" => $this->url,
             "video" =>$this->video_url,
             "created_at" => $this->created_at->diffForHumans(),
+            "tags" => $this->tags->map->format()
         ];
     }
     public function formatWithOwner()
