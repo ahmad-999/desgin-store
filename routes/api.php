@@ -48,5 +48,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::post('/get-all-designs',[DesginController::class,'getAllDesigns']);
 Route::post('/get-all-tags',[DesginController::class,'getAllTags']);
+Route::post('/get-all-genre-tags',[DesginController::class,'getAllGenreTags']);
 Route::post('/get-all-distributors', [UserController::class, 'getAllDistributor']);
 Route::post('/get-desgin-by-tags', [DesginController::class, 'getDesignsByTags']);

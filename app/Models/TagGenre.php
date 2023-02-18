@@ -13,7 +13,17 @@ class TagGenre extends Model
     protected $fillable = [
         'name'
     ];
-    public function tags():HasMany{
-        return $this->hasMany(Tag::class,'genere_id');
+    public function tags(): HasMany
+    {
+        return $this->hasMany(Tag::class, 'genere_id');
+    }
+
+    public function format()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'tags' => $this->tags,
+        ];
     }
 }

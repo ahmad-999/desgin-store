@@ -9,6 +9,7 @@ use App\Models\Desgin;
 use App\Models\DesginTag;
 use App\Models\Group;
 use App\Models\Tag;
+use App\Models\TagGenre;
 use Illuminate\Http\Request;
 use \App\Traits\MyResponse;
 use \App\Traits\Constance;
@@ -170,5 +171,9 @@ class DesginController extends Controller
     public function getAllTags(){
         $tags = Tag::all();
         return MyResponse::returnData("tags",$tags);
+    }
+    public function getAllGenreTags(){
+        $genres = TagGenre::get()->map->format();
+        return MyResponse::returnData("genres",$genres); 
     }
 }
