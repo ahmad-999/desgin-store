@@ -27,9 +27,11 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum', 'is_admin']], function () {
     Route::post('create-tag', [UserController::class, 'createTag']);
+    Route::post('create-tag-genre', [UserController::class, 'createTagGenre']);
     Route::post('create-distributor', [UserController::class, 'createDistributor']);
     Route::post('delete-distributor', [UserController::class, 'deleteDistributor']);
     Route::post('delete-tag/{id}', [UserController::class, 'deleteTag']);
+    Route::post('remove-tag-genre', [UserController::class, 'deleteTagGenre']);
     
     Route::post('get-distributor/{id}', [UserController::class, 'getDistributorById']);
    

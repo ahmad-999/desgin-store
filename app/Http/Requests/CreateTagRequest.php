@@ -28,14 +28,17 @@ class CreateTagRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|unique:tags,name"
+            "name" => "required|unique:tags,name",
+            'genreId' => 'required|exists:tag_genres,id'
         ];
     }
     public function messages()
     {
         return [
             "name.required" => "name is required",
-            "name.unique" => "name must be unique"
+            "name.unique" => "name must be unique",
+            "genreId.required" => "genreId is required",
+            "genreId.exists" => "genreId must be unique"
         ];
     }
     public function failedValidation(ValidationValidator $validator)
@@ -46,7 +49,8 @@ class CreateTagRequest extends FormRequest
     public function values()
     {
         return [
-            'name' => $this->name
+            'name' => $this->name,
+            "genere_id" => $this->genreId
         ];
     }
 }

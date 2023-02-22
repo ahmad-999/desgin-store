@@ -9,6 +9,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateDistributorRequest;
 use App\Models\Group;
 use App\Models\Tag;
+use App\Models\TagGenre;
 use App\Models\User;
 use Illuminate\Http\Request;
 use \App\Traits\MyResponse;
@@ -105,6 +106,15 @@ class UserController extends Controller
         $tag = Tag::create($request->values());
         return MyResponse::returnData('tag', $tag);
     }
+    public function createTagGenre(Request $request)
+    {
+        $tagGenre = TagGenre::create([
+            'name' => $request->name
+        ]);
+        $tagGenre = TagGenre::find($tagGenre->id)->format();
+        return MyResponse::returnData('tagGenre', $tagGenre);
+    }
+
     public function getDistributorById($id)
     {
         $dist = User::find($id);
@@ -134,6 +144,16 @@ class UserController extends Controller
             return MyResponse::returnMessage("tag removed successfully.");
         } else {
             return MyResponse::returnError("tag not found.", 404);
+        }
+    }
+    public function deleteTagGenre(Request $request)
+    {
+        $genre = TagGenre::find($request->id);
+        if (isset($genre)) {
+            $genre->delete();
+            return MyResponse::returnMessage("tag genre removed successfully.");
+        } else {
+            return MyResponse::returnError("tag genre not found.", 404);
         }
     }
 }
