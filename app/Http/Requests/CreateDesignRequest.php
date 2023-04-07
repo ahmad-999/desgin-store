@@ -31,7 +31,7 @@ class CreateDesignRequest extends FormRequest
         return [
             //'group_id' => 'required|exists:groups,id',
             'name' => 'required',
-            'desc' => 'required',
+            // 'desc' => 'required',
             'image' => 'required',
             'tags' => 'required'
         ];
